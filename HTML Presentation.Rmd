@@ -1,5 +1,5 @@
 ---
-title: "Untitled"
+title: "BMI Calculator"
 author: "Yen-Chu Tu"
 date: "June 7, 2019"
 output: ioslides_presentation
@@ -32,6 +32,8 @@ height <- 175
 BMI <- weight/(height/100)^2
 BMI
 ```
+### FOR SHINY EMBEDDED, PLEASE SEE SHINYAPPS.IO LINK IN SUBMISSION
+
 ## Target BMI for Your Height
 
 The target BMI for your height is always at 22, center of the Normal Weight

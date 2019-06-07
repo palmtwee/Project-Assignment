@@ -1,0 +1,57 @@
+---
+title: "Untitled"
+author: "Yen-Chu Tu"
+date: "June 7, 2019"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Body Mass Index
+
+The Body Mass Index is a number that represents the health and the bodyfat of
+your body. It's commonly used in the health industry, and it applies to both men
+and women. The BMI score can be interpreted by:
+
+*Under Weight: BMI is lower than 18.5
+
+*Normal Weight: BMI is between 18.5 and 24.9
+
+*Over Weight: BMI is between 25 to 29.9
+
+*Obese: BMI is above 30
+
+## Calculations
+The Body Mass Index is based on your height and weight. It can be calculated as
+the weight of the subject divided by his/her height squared.
+```{r}
+weight <- 70
+height <- 175
+BMI <- weight/(height/100)^2
+BMI
+```
+## Target BMI for Your Height
+
+The target BMI for your height is always at 22, center of the Normal Weight
+BMI range. It can be found by multiplying 22 by the subject's height squared.
+```{r}
+Goal <- 22*(height/100)^2
+print('Your Target Weight is')
+Goal
+```
+
+## Conclusion
+
+The App loaded on the Shiny Server is a combination of the BMI calculator and
+the target weight calculator. The target weight can be displayed or hidden via
+the checkbox input. 
+
+Keep in mind that BMI is by no means a perfect system, and fails to take into 
+account the muscle mass and fat mass discrepancies in the body. Atheletes tend 
+to have a very high BMI.
+
+Hopefully, this application can help you understand where your weight and health
+stands!
+

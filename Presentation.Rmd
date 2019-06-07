@@ -1,0 +1,139 @@
+---
+title: "Data Product Presentation - BMI Calculator"
+author: "Yen-Chu Tu"
+date: "June 7, 2019"
+output: ioslides_presentation
+runtime: shiny
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Body Mass Index
+
+The Body Mass Index is a number that represents the health and the bodyfat of
+your body. It's commonly used in the health industry, and it applies to both men
+and women. The BMI score can be interpreted by:
+
+*Under Weight: BMI is lower than 18.5
+
+*Normal Weight: BMI is between 18.5 and 24.9
+
+*Over Weight: BMI is between 25 to 29.9
+
+*Obese: BMI is above 30
+
+## Calculations
+The Body Mass Index is based on your height and weight. It can be calculated as
+the weight of the subject divided by his/her height squared.
+```{r, echo=FALSE}
+shinyApp(
+
+  ui = fluidPage(
+  titlePanel("Body Mass Index Calculator"),
+  sidebarLayout(
+    sidebarPanel(
+        h1("Height in Centimeters"),
+        sliderInput("height","Height", 60, 250, 162),
+        h1("Weight in Kilograms"),
+        sliderInput("weight","Weight",10,300,65)
+    ),
+    mainPanel(
+        h1("Body Mass Index:"),
+        h3(textOutput("text1")),
+        h3(textOutput("text2"))
+    )
+  )
+),
+
+  server = function(input, output) {
+        BMI <-reactive({
+                input$weight/(input$height/100)^2
+        })
+  output$text1 <- renderText(BMI())
+  
+  output$text2 <- renderText({
+          
+          if ( BMI()<18.5) {
+                  text2 <- "You are Underweight"
+          } else {
+                  
+                  if ( BMI()>=18.5 && BMI()<24.9) {
+                          text2 <- "You are Normal Weight"
+                  } else {
+                          
+                          if ( BMI()>=18.5 && BMI()<25)  {
+                                  text2 <- "You are Normal Weight"  
+                          } else {
+                                  
+                                  if ( BMI()>=25.0 && BMI()<30)  {
+                                          text2 <- "You are OverWeight"
+                                  } else {
+                                          
+                                          if ( BMI()>=30)  {
+                                                  text2 <-"You are Obese"
+                                                  }
+                                          }
+                                  }
+                          }
+                  }
+  })
+  
+  Goal <- reactive({
+          22*(input$height/100)^2
+  })
+  
+
+},
+
+  options = list(height = 10)
+)
+```
+
+## Target BMI for Your Height
+
+The target BMI for your height is always at 22, center of the Normal Weight
+BMI range. It can be found by multiplying 22 by the subject's height squared.
+```{r, echo=FALSE}
+shinyApp(
+
+  ui = fluidPage(
+  titlePanel("Body Mass Index Calculator"),
+  sidebarLayout(
+    sidebarPanel(
+        h1("Height in Centimeters"),
+        sliderInput("height","Height", 60, 250, 162)
+    ),
+    mainPanel(
+        h2("Your Target Weight for Your Height in kg is:"),
+        h3(textOutput("text3"))
+    )
+  )
+),
+
+  server = function(input, output) {
+
+  Goal <- reactive({
+          22*(input$height/100)^2
+  })
+  output$text3 <- renderText(Goal())
+},
+
+  options = list(height = 10)
+)
+```
+
+## Conclusion
+
+The App loaded on the Shiny Server is a combination of the BMI calculator and
+the target weight calculator. The target weight can be displayed or hidden via
+the checkbox input. 
+
+Keep in mind that BMI is by no means a perfect system, and fails to take into 
+account the muscle mass and fat mass discrepancies in the body. Atheletes tend 
+to have a very high BMI.
+
+Hopefully, this application can help you understand where your weight and health
+stands!
+
